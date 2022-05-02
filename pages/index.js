@@ -27,7 +27,7 @@ export default function Home() {
       formData.append("file", image);
     });
     try {
-      const response = await axios.post("/api/upload", formData);
+      const response = await axios.post("https://cloudinary-react-dropzone.vercel.app/api/upload", formData);
       console.log(response.data);
       setUploadStatus("upload successful");
     } catch (error) {

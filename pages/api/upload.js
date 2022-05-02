@@ -26,6 +26,10 @@ function runMiddleware(req, res, fn) {
 }
 
 export default async function handler(req, res) {
+  const { method } = req;
+  if (method === "OPTIONS") {
+    return res.status(200).send("ok");
+  }
   await runMiddleware(req, res, myUploadMiddleware);
   for (const file of req.files) {
     try {
