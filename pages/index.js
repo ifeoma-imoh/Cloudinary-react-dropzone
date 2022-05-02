@@ -18,24 +18,22 @@ export default function Home() {
     isDragActive,
     isDragAccept,
     isDragReject,
-  } = useDropzone({ onDrop, accept: 'image/png',  maxFiles:2,});
+  } = useDropzone({ onDrop });
 
-  const onUpload = () => {
-    (async function uploadImage() {
-      setUploadStatus("Uploading....");
-      const formData = new FormData();
-      selectedImages.forEach((image) => {
-        formData.append("file", image);
-      });
-      try {
-        const response = await axios.post("/api/upload", formData);
-        console.log(response.data);
-        setUploadStatus("upload successful");
-      } catch (error) {
-        console.log("imageUpload" + error);
-        setUploadStatus("Upload failed..");
-      }
-    })();
+  const onUpload = async () => {
+    setUploadStatus("Uploading....");
+    const formData = new FormData();
+    selectedImages.forEach((image) => {
+      formData.append("file", image);
+    });
+    try {
+      const response = await axios.post("/api/upload", formData);
+      console.log(response.data);
+      setUploadStatus("upload successful");
+    } catch (error) {
+      console.log("imageUpload" + error);
+      setUploadStatus("Upload failed..");
+    }
   };
 
   const style = useMemo(
